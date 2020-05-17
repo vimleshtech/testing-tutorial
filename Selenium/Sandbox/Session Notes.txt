@@ -1,0 +1,149 @@
+Selenium: is an API (application programing interface) or library which provides the classes, and functions to automate the web application 
+
+
+Step 1: Download the seleneium API(library)
+
+	Search text on google :
+			selenium download
+	Open first url 
+		
+Step 2:
+Right click on Project ‘OnlineStore‘ > Select Properties > Java build path. Then navigate to Libraries tab and click Add External JARs.
+
+
+List of class and methods:
+-----------------------------------
+WebDriver 	: is inbuilt interface
+ChromeDriver	: is class
+FirefixDriver   : is class
+InternetExplorer : is class 
+
+
+
+Methods:
+	get(url)	: open the website
+	getTitle()	: return title webesite 
+			uhb.hub.com
+
+	getCurrentUrl() : https://www.abc.com
+	getPageSoure()	: get html source code
+
+	quit()		: close the browser 
+	close()		: close current instance (tab)
+
+		
+Navigate To Command
+	driver.navigate().to(abc.html);
+	driver.navigate().forward();
+	driver.navigate().background();
+	driver.navigate().refresh();
+	
+element.clear()			: remove the data from textbox 
+element.sendKeys(“text”);	: enter data 
+element.click()			: mouse click
+element.sendKeys(keys.ENTER)
+element.sendKeys(keys.SHIFT)
+element.sendKeys(keys.CTRL)
+
+
+element.isDisplayed( )		: return true or false 
+
+element.IsEnabled()		: return true or false 
+
+IsSelected()			: return true or false 
+			can be use with checkbox or radio button
+
+
+
+
+element.isDisplayed( )		: submit the form 
+element.getText( )		: get data from webpage
+elenet.getTagName( )		:
+					div
+					p
+					input 
+
+
+driver.findElement(by.id(tab)).getAttribute("innerHTML")
+driver.findElement(by.id(tab)).getAttribute("name")
+
+		<div id="tab" name="test" class="txt mystyle">
+
+			<p>
+				hi..
+				..
+			</p>
+			<div>
+				..
+				..
+			</div>
+		</div>
+
+
+
+element.getCssValue()	
+		txt mystyle
+
+Find web elements
+==================================
+Example:
+	<input id="a" name="b" class="abc" value=""/>
+
+	<a> Home Page </a>
+	<div id="a"> ..
+		
+		<div>
+
+		<p>
+			name : <input type="" />
+			email :<input type="" />
+		</p>
+		</div>
+		<p>
+
+		</p>
+	</div>
+		
+
+driver.findElement(By.id(“a”));
+driver.findElement(By.name(“b”));
+driver.findElement(By.className(“abc”));
+driver.findElement(By.tagName(“div”));
+
+driver.findElement(By.linkText(“Home Page”));
+driver.findElement(By.partialLinkText(“Home”));
+
+driver.findElement(By.xpath(“/html/div/div/p/input[0]”));
+
+	/html/div/div/p/input[0] 
+	/html/div/div/p/input[1] 
+
+	types: 
+		fix path
+			/html/div/div/p/input[0] 
+		absolute path 
+				id=['a']/p/input[0] 
+
+
+findElement() 	: find and return ref of one element
+findElements() 	: find and return the references of multiple elements
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

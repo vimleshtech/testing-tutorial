@@ -1,0 +1,308 @@
+
+Web Driver provides the following two methods to find the elements.
+
+findElement() – finds a single web element and returns as a WebElement object.
+findElements() – returns a list of WebElement objects matching the locator criteria.
+
+
+Locators
+The method findElement() takes one parameter which is a locator to the element. Different locators like By.id(), By.name(), By.xpath(), By.CSSSelector() etc. locate the elements in the page using their properties like`````` id, name or path, etc.
+
+
+There are various techniques by which the WebDriver identifies the form elements based on the different properties of the Web elements like 
+
+ID
+Name
+Class
+XPath
+Tagname
+CSSSelectors
+linkText
+partialLinkText
+
+
+
+sendKeys()	used to enter values onto text boxes
+clear()	used to clear text boxes of its current value
+click()	used to click on the link and wait for page load to complete before proceeding to the next command.
+submit()
+
+
+
+
+Summary for locating elements
+
+Variation	Description	Sample
+By.className	finds elements based on the value of the "class" attribute	findElement(By.className("someClassName"))
+By.cssSelector	finds elements based on the driver's underlying CSS Selector engine	findElement(By.cssSelector("input#email"))
+By.id	locates elements by the value of their "id" attribute	findElement(By.id("someId"))  
+By.linkText	finds a link element by the exact text it displays	findElement(By.linkText("REGISTRATION"))  
+By.name	locates elements by the value of the "name" attribute	findElement(By.name("someName"))  
+By.partialLinkText	locates elements that contain the given link text	findElement(By.partialLinkText("REG"))  
+By.tagName	locates elements by their tag name	findElement(By.tagName("div"))  
+By.xpath	locates elements via XPath	findElement(By.xpath("//html/body/div/table/tbody/tr/td[2]/table/ tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td[3]/ form/table/tbody/tr[5]"))
+
+
+Get Commands
+Get commands fetch various important information about the page/element. Here are some important "get" commands you must be familiar with.
+
+get() Sample usage:  	
+It automatically opens a new browser window and fetches the page that you specify inside its parentheses.
+It is the counterpart of Selenium IDE's "open" command.
+The parameter must be a String object.
+getTitle() Sample usage:  	
+Needs no parameters
+Fetches the title of the current page
+Leading and trailing white spaces are trimmed
+Returns a null string if the page has no title
+getPageSource() Sample usage:  	
+Needs no parameters
+Returns the source code of the page as a String value
+getCurrentUrl() Sample usage:    	
+Needs no parameters
+Fetches the string representing the current URL that the browser is looking at
+getText() Sample usage:  	
+Fetches the inner text of the element that you specify
+Navigate commands
+These commands allow you to  refresh,go-into and switch back and forth between different web pages.
+
+navigate().to() Sample usage:  	
+It automatically opens a new browser window and fetches the page that you specify inside its parentheses.
+It does exactly the same thing as the get() method.
+navigate().refresh() Sample usage:  	
+Needs no parameters.
+It refreshes the current page.
+navigate().back() Sample usage:  	
+Needs no parameters
+Takes you back by one page on the browser's history.
+navigate().forward() Sample usage:  	
+Needs no parameters
+Takes you forward by one page on the browser's history.
+Closing and Quitting Browser Windows
+close() Sample usage:  	
+Needs no parameters
+It closes only the browser window that WebDriver is currently controlling.
+quit() Sample usage:  	
+Needs no parameters
+It closes all windows that WebDriver has opened.
+
+
+Check Box, Radio Button	click()	used to toggle the element on/off
+
+
+
+switchTo().frame()
+   alertMessage = driver.switchTo().alert().getText();
+        driver.switchTo().alert().accept();
+
+
+Waits
+There are two kinds of waits.
+
+Implicit wait - used to set the default waiting time throughout the program
+Explicit wait - used to set the waiting time for a particular instance only
+
+
+
+Explicit Wait
+Explicit waits are done using the WebDriverWait and ExpectedCondition classes. For the following example, we shall wait up to 10 seconds for an element whose id is "username" to become visible before proceeding to the next command. Here are the steps.
+
+
+isEnabled() is used when you want to verify whether a certain element is enabled or not before executing a command.
+
+isDisplayed() is used when you want to verify whether a certain element is displayed or not before executing a command.
+
+isSelected() is used when you want to verify whether a certain check box, radio button, or option in a drop-down box is selected. It does not work on other elements.
+
+
+Using ExpectedConditions
+The ExpectedConditions class offers a wider set of conditions that you can use in conjunction with WebDriverWait's until() method.
+
+Below are some of the most common ExpectedConditions methods.
+
+alertIsPresent() - waits until an alert box is displayed.
+
+
+
+elementToBeClickable() - Waits until an element is visible and, at the same time, enabled. The sample code below will wait until the element with id="username" to become visible and enabled first before assigning that element as a WebElement variable named "txtUserName".
+
+
+
+frameToBeAvailableAndSwitchToIt() - Waits until the given frame is already available, and then automatically switches to it.
+
+
+Summary
+To start using the WebDriver API, you must import at least these two packages.
+org.openqa.selenium.*
+org.openqa.selenium.firefox.FirefoxDriver
+The get() method is the equivalent of Selenium IDE's "open" command.
+Locating elements in WebDriver is done by using the findElement() method.
+The following are the available options for locating elements in WebDriver:
+By.className
+By.cssSelector
+By.id
+By.linkText
+By.name
+By.partialLinkText
+By.tagName
+By.xpath
+The By.cssSelector() does not support the "contains" feature.
+You can instantiate an element using the WebElement class.
+Clicking on an element is done by using the click() method.
+WebDriver provides these useful get commands:
+get()
+getTitle()
+getPageSource()
+getCurrentUrl()
+getText()
+WebDriver provides these useful navigation commands
+navigate().forward()
+navigate().back()
+navigate().to()
+navigate().refresh()
+The close() and quit() methods are used to close browser windows. Close() is used to close a single window; while quit() is used to close all windows associated to the parent window that the WebDriver object was controlling.
+The switchTo().frame() and switchTo().alert() methods are used to direct WebDriver's focus onto a frame or alert, respectively.
+Implicit waits are used to set the waiting time throughout the program, while explicit waits are used only on specific portions.
+You can use the isEnabled(), isDisplayed(),isSelected(), and a combination of WebDriverWait and ExpectedConditions methods when verifying the state of an element. However, they do not verify if the element exists.
+When isEnabled(), isDisplayed(),or isSelected() was called while the element was not existing, WebDriver will throw a NoSuchElementException.
+When WebDriverWait and ExpectedConditions methods were called while the element was not existing, WebDriver would throw a TimeoutException. 
+
+
+getAttribute()
+innerHTML
+outerHTML
+
+--dropdown
+
+
+Element	Command	Description
+Drop-Down Box	selectByVisibleText()/ deselectByVisibleText()	selects/deselects an option by its displayed text
+selectByValue()/ deselectByValue()	selects/deselects an option by the value of its "value" attribute
+selectByIndex()/ deselectByIndex()	selects/deselects an option by its index
+isMultiple()	returns TRUE if the drop-down element allows multiple selection at a time; FALSE if otherwise
+deselectAll()	deselects all previously selected options
+
+
+Handling Keyboard & Mouse Events
+Handling special keyboard and mouse events are done using the Advanced User Interactions API. It contains the Actions and the Action classes that are needed when executing these events. The following are the most commonly used keyboard and mouse events provided by the Actions class.
+
+Method	Description
+clickAndHold()	Clicks (without releasing) at the current mouse location.
+contextClick()	Performs a context-click at the current mouse location. (Right Click Mouse Action)
+doubleClick()	Performs a double-click at the current mouse location.
+dragAndDrop(source, target)	Performs click-and-hold at the location of the source element, moves to the location of the target element, then releases the mouse.
+
+Parameters:
+
+source- element to emulate button down at.
+
+target- element to move to and release the mouse at.
+dragAndDropBy(source, x-offset, y-offset)	Performs click-and-hold at the location of the source element, moves by a given offset, then releases the mouse.
+
+Parameters:
+
+source- element to emulate button down at.
+
+xOffset- horizontal move offset.
+
+yOffset- vertical move offset.
+keyDown(modifier_key)	Performs a modifier key press. Does not release the modifier key - subsequent interactions may assume it's kept pressed.
+
+Parameters:
+
+modifier_key - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
+keyUp(modifier _key)	Performs a key release.
+
+Parameters:
+
+modifier_key - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
+moveByOffset(x-offset, y-offset)	Moves the mouse from its current position (or 0,0) by the given offset.
+
+Parameters:
+
+x-offset- horizontal offset. A negative value means moving the mouse left.
+
+y-offset- vertical offset. A negative value means moving the mouse down.
+moveToElement(toElement)	Moves the mouse to the middle of the element. 
+
+Parameters:
+
+toElement- element to move to.
+release()	Releases the depressed left mouse button at the current mouse location
+sendKeys(onElement, charsequence)	Sends a series of keystrokes onto the element. 
+
+Parameters:
+
+onElement - element that will receive the keystrokes, usually a text field
+
+charsequence - any string value representing the sequence of keystrokes to be sent
+
+
+
+How to Upload & Download a File using Selenium
+
+
+ WebElement uploadElement = driver.findElement(By.id("uploadfile_0"));
+
+        // enter the file path onto the file-selection input field
+        uploadElement.sendKeys("C:\\newhtml.html");
+
+        // check the "I accept the terms of service" check box
+        driver.findElement(By.id("terms")).click();
+
+        // click the "UploadFile" button
+        driver.findElement(By.name("send")).click();
+
+
+
+ WebElement downloadButton = driver.findElement(By
+        .id("messenger-download"));
+        String sourceLocation = downloadButton.getAttribute("href");
+        String wget_command = "cmd /c C:\\Wget\\wget.exe -P D: --no-check-certificate " + sourceLocation;
+
+        try {
+        Process exec = Runtime.getRuntime().exec(wget_command);
+        int exitVal = exec.waitFor();
+        System.out.println("Exit value: " + exitVal);
+        } catch (InterruptedException | IOException ex) {
+        System.out.println(ex.toString());
+        }
+
+
+Types of X-path
+There are two types of XPath:
+
+1) Absolute XPath
+
+The key characteristic of XPath is that it begins with the single forward slash(/) 
+
+html/body/div[1]/section/div[1]/div/div/div/div[1]/div/div/div/div/div[3]/div[1]/div/h4[1]/b
+
+
+2) Relative XPath
+
+It starts with the double forward slash (//)
+
+//*[@class='featured-box']//*[text()='Testing']
+
+
+
+--contains
+Xpath=//*[contains(@type,'sub')]  
+
+Xpath=//input[@type='text']				
+Xpath=	//label[@id='message23']
+Xpath=	//input[@value='RESET']
+Xpath=//*[@class='barone']
+Xpath=//a[@href='http://demo.guru99.com/']
+Xpath= //img[@src='//cdn.abc.com/images/home/java.png']
+
+
+
+--and /or
+Xpath=//*[@type='submit' or @name='btnReset']
+
+Xpath=//*[@type='text']//following::input[1]
+Ancestor--
+Xpath=//*[text()='Enterprise Testing']//ancestor::div
+

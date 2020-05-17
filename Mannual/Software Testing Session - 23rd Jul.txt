@@ -1,0 +1,47 @@
+Today's TOpic : 23rd Jul 2018
+========================
+->SDLC Model
+->V-Model
+->Agile
+->Testing Types
+->SRS, BR, FR documents 
+
+
+Next:  : 24th Jul 2018
+============
+->STLC
+->Test Case Prepreationan Review
+->Priority & Serverity
+->7 Principal of Testing
+
+
+
+SDLC Model Types
+=========================
+There are following types of SDLC Mode:
+1. Waterfall model : every phase will work in sequenctial way
+		    : 2nd phase will start only after compiltion of previous phase
+	->Top-down approach 
+
+2. Iterative Model : this works in phases
+
+3. Prototype   : Demo project will  be shown to client (with limited features)
+		
+
+4. Spiral 
+	
+	
+V-Model
+=============================
+
+Agile
+===========================
+
+	
+
+
+
+	
+
+
+

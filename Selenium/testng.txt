@@ -1,0 +1,63 @@
+TestNG : is framework, is also known as extension of junit 
+-------------------------------------------------------------
+-how to configure testng in my eclipse
+	->help -> eclipse market place
+		-> enter "testng"
+		-> click on "go" button
+		-> return list of testng version 
+		-> click on install 
+
+
+
+-testng Class 
+-testng annotation : annoation is system defined properties 
+@BeforeSuite	:1
+@AfterSuite		:9
+@BeforeClass	:3
+@AfterClass		:7
+@BeforeMethod	:4
+@AfterMethod		:6
+@Test		:5
+@DataProvider
+@BeforeTest	:2
+@AfterTest		:8
+
+-priority 
+	0-10
+	H-L
+
+
+-group 
+	->multiple function can be part of one group
+	-> one function can be part of multiple group
+	
+
+-dependency
+	->one function can depends on another function result
+	->one function can be depend on another group result 
+
+
+-suite 
+	-> testng suite is 	xml file which contains reference of multiple testng class 
+
+-data provider
+	: is collection of data which can pass to @Test function for iteration 
+
+-run as configuration 
+	-class
+	-package
+	-group
+	-suite
+	-run as function 
+
+
+example:
+@Test(priority=0,group="g1")
+public void abcd()
+{
+
+
+}
+
+
+

@@ -1,0 +1,458 @@
+What is Page Object Model? is design patter no create Object Repository
+=========================================== 
+-Page Object Model is a design pattern to create Object Repository for web UI elements. 
+-Under this model, for each web page in the application, there should be corresponding page class. 
+
+-This Page class will find the WebElements of that web page and also contains Page methods which perform operations on those WebElements.
+
+Name of these methods should be given as per the task they are performing, i.e., if a loader is waiting for the payment gateway to appear, POM method name can be waitForPaymentScreenDisplay().
+
+Page
+-------------
+package pages;
+
+import org.openqa.selenium.By;
+
+import org.openqa.selenium.WebDriver;
+
+public class TechLogin {
+
+    WebDriver driver;
+
+    By userTechName = By.name("uid");
+
+    By passwordTech = By.name("password");
+
+    By titleText =By.className("barone");
+
+    By login = By.name("btnLogin");
+
+    public TechLogin(WebDriver driver){
+
+        this.driver = driver;
+
+    }
+
+    //Set user name in textbox
+
+    public void setUserName(String strUserName){
+
+        driver.findElement(userTechName).sendKeys(strUserName);
+
+    }
+
+    //Set password in password textbox
+
+    public void setPassword(String strPassword){
+
+         driver.findElement(passwordTech).sendKeys(strPassword);
+
+    }
+
+    //Click on login button
+
+    public void clickLogin(){
+
+            driver.findElement(login).click();
+
+    }
+
+    //Get the title of Login Page
+
+    public String getLoginTitle(){
+
+     return    driver.findElement(titleText).getText();
+
+    }
+
+    /**
+
+     * This POM method will be exposed in test case to login in the application
+
+     * @param strUserName
+
+     * @param strPasword
+
+     * @return
+
+     */
+
+    public void loginToTech(String strUserName,String strPasword){
+
+        //Fill user name
+
+        this.setUserName(strUserName);
+
+        //Fill password
+
+        this.setPassword(strPasword);
+
+        //Click Login button
+
+        this.clickLogin();        
+    }
+
+}
+
+------------
+Tech Home Page POM
+
+package pages;
+
+import org.openqa.selenium.By;
+
+import org.openqa.selenium.WebDriver;
+
+public class TechHomePage {
+
+    WebDriver driver;
+
+    By homePageUserName = By.xpath("//table//tr[@class='heading3']");
+
+    
+
+    public TechHomePage(WebDriver driver){
+
+        this.driver = driver;
+
+    }
+
+    //Get the User name from Home Page
+
+        public String getHomePageDashboardUserName(){
+
+         return    driver.findElement(homePageUserName).getText();
+
+        }
+
+}
+
+----------------
+
+Tech Simple POM Test case
+
+
+package test;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import org.testng.Assert;
+
+import org.testng.annotations.BeforeTest;
+
+import org.testng.annotations.Test;
+
+import pages.TechHomePage;
+
+import pages.TechLogin;
+
+public class TestTechLogin {
+
+    WebDriver driver;
+
+    TechLogin objLogin;
+
+    TechHomePage objHomePage;
+
+    @BeforeTest
+
+    public void setup(){
+
+        driver = new FirefoxDriver();
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        driver.get("http://demo.Tech.com/V4/");
+
+    }
+
+    /**
+
+     * This test case will login in http://demo.Tech.com/V4/
+
+     * Verify login page title as Tech bank
+
+     * Login to application
+
+     * Verify the home page using Dashboard message
+
+     */
+
+    @Test(priority=0)
+
+    public void test_Home_Page_Appear_Correct(){
+
+        //Create Login Page object
+
+    objLogin = new TechLogin(driver);
+
+    //Verify login page title
+
+    String loginPageTitle = objLogin.getLoginTitle();
+
+    Assert.assertTrue(loginPageTitle.toLowerCase().contains("Login -Tech Vision ERP v 1.2"));
+
+    //login to application
+
+    objLogin.loginToTech("mgr123", "mgr!23");
+
+    // go the next page
+
+    objHomePage = new TechHomePage(driver);
+
+    //Verify home page
+
+    Assert.assertTrue(objHomePage.getHomePageDashboardUserName().toLowerCase().contains("manger id : mgr123"));
+
+    }
+
+
+
+
+What is Page Factory?
+=======================
+Page Factory is an inbuilt Page Object Model concept for Selenium WebDriver but it is very optimized.
+
+Here as well, we follow the concept of separation of Page Object Repository and Test Methods. Additionally, with the help of PageFactory class, we use annotations 
+@FindBy to find WebElement. We use initElements method to initialize web elements
+
+
+@FindBy can accept tagName, partialLinkText, name, linkText, id, css, className, xpath as attributes.
+
+Let's look at the same example as above using Page Factory
+
+Tech Login page with Page Factory
+
+package PageFactory;
+
+import org.openqa.selenium.WebDriver;
+
+import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.support.FindBy;
+
+import org.openqa.selenium.support.PageFactory;
+
+public class TechLogin {
+
+    /**
+
+     * All WebElements are identified by @FindBy annotation
+
+     */
+
+    WebDriver driver;
+
+    @FindBy(name="uid")
+
+    WebElement userTechName;
+
+    @FindBy(name="password")
+
+    WebElement passwordTech;    
+
+    @FindBy(className="barone")
+
+    WebElement titleText;
+
+    @FindBy(name="btnLogin")
+
+    WebElement login;
+
+    public TechLogin(WebDriver driver){
+
+        this.driver = driver;
+
+        //This initElements method will create all WebElements
+
+        PageFactory.initElements(driver, this);
+
+    }
+
+    //Set user name in textbox
+
+    public void setUserName(String strUserName){
+
+        userTechName.sendKeys(strUserName);     
+    }
+
+    //Set password in password textbox
+
+    public void setPassword(String strPassword){
+
+    passwordTech.sendKeys(strPassword);
+
+    }
+
+    //Click on login button
+
+    public void clickLogin(){
+
+            login.click();
+
+    }  
+
+    //Get the title of Login Page
+
+    public String getLoginTitle(){
+
+     return    titleText.getText();
+
+    }
+
+    /**
+
+     * This POM method will be exposed in test case to login in the application
+
+     * @param strUserName
+
+     * @param strPasword
+
+     * @return
+
+     */
+
+    public void loginToTech(String strUserName,String strPasword){
+
+        //Fill user name
+
+        this.setUserName(strUserName);
+
+        //Fill password
+
+        this.setPassword(strPasword);
+
+        //Click Login button
+
+        this.clickLogin();           
+
+    }
+
+}
+Tech Home Page with Page Factory
+
+package PageFactory;
+
+import org.openqa.selenium.WebDriver;
+
+import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.support.FindBy;
+
+import org.openqa.selenium.support.PageFactory;
+
+public class TechHomePage {
+
+    WebDriver driver;
+
+    @FindBy(xpath="//table//tr[@class='heading3']")
+
+    WebElement homePageUserName;    
+
+    public TechHomePage(WebDriver driver){
+
+        this.driver = driver;
+
+        //This initElements method will create all WebElements
+
+        PageFactory.initElements(driver, this);
+
+    }   
+
+    //Get the User name from Home Page
+
+        public String getHomePageDashboardUserName(){
+
+         return    homePageUserName.getText();
+
+        }
+
+}
+Tech TestCase with Page Factory concept
+package test;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import org.testng.Assert;
+
+import org.testng.annotations.BeforeTest;
+
+import org.testng.annotations.Test;
+
+import PageFactory.TechHomePage;
+
+import PageFactory.TechLogin;
+
+public class TestTechLoginWithPageFactory {
+
+    WebDriver driver;
+
+    TechLogin objLogin;
+
+    TechHomePage objHomePage; 
+
+    @BeforeTest
+
+    public void setup(){
+
+        driver = new FirefoxDriver();
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        driver.get("http://demo.Tech.com/V4/");
+
+    }
+
+    /**
+
+     * This test go to http://demo.Tech.com/V4/
+
+     * Verify login page title as Tech bank
+
+     * Login to application
+
+     * Verify the home page using Dashboard message
+
+     */
+
+    @Test(priority=0)
+
+    public void test_Home_Page_Appear_Correct(){
+
+        //Create Login Page object
+
+    objLogin = new TechLogin(driver);
+
+    //Verify login page title
+
+    String loginPageTitle = objLogin.getLoginTitle();
+
+    Assert.assertTrue(loginPageTitle.toLowerCase().contains("Tech bank"));
+
+    //login to application
+
+    objLogin.loginToTech("mgr123", "mgr!23");
+
+    // go the next page
+
+    objHomePage = new TechHomePage(driver);
+
+    //Verify home page
+
+    Assert.assertTrue(objHomePage.getHomePageDashboardUserName().toLowerCase().contains("manger id : mgr123"));
+
+    }
+
+}
+
+
+
+	
